@@ -1,7 +1,7 @@
 # Expo Mobile App Template
 
 ## Overview
-This is an Expo + React Native mobile app with TypeScript, NativeWind (Tailwind CSS), and expo-router for file-based navigation. It runs on iOS, Android, and Web.
+This is an Expo + React Native mobile app with TypeScript, StyleSheet, and expo-router for file-based navigation. It runs on iOS, Android, and Web.
 
 ## Commands
 ```bash
@@ -43,22 +43,42 @@ assets/
 | `<a>`                 | `<Link>` from expo-router       |
 | `<scroll>`            | `<ScrollView>`                  |
 
-### Styling with NativeWind
-Use `className` prop with Tailwind classes:
+### Styling with StyleSheet
+Use `StyleSheet.create()` for all styling:
 ```tsx
-<View className="flex-1 bg-background p-4">
-  <Text className="text-2xl font-bold text-foreground">Hello</Text>
-  <Pressable className="bg-primary rounded-xl py-3 px-6 active:opacity-80">
-    <Text className="text-white font-semibold text-center">Button</Text>
-  </Pressable>
-</View>
+import { View, Text, Pressable, StyleSheet } from "react-native";
+
+export default function MyScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Hello</Text>
+      <Pressable style={styles.button}>
+        <Text style={styles.buttonText}>Button</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "#ffffff", padding: 16 },
+  title: { fontSize: 24, fontWeight: "bold", color: "#0f172a" },
+  button: { backgroundColor: "#6366f1", borderRadius: 12, paddingVertical: 12, paddingHorizontal: 24 },
+  buttonText: { color: "#ffffff", fontWeight: "600", textAlign: "center" },
+});
 ```
 
-Key differences from web Tailwind:
-- No `hover:` (use `active:` for press)
-- No `grid` layout (use `flex` only)
-- No `cursor-pointer`
-- Use `gap-*` for spacing between flex children
+Theme colors:
+- Primary: `#6366f1` (indigo)
+- Background: `#ffffff`
+- Foreground: `#0f172a`
+- Muted: `#f1f5f9`
+- Muted foreground: `#64748b`
+- Border: `#e2e8f0`
+
+Key rules:
+- No `hover:` states (use press handlers for interaction feedback)
+- No CSS grid (use flexbox only)
+- Use `gap` for spacing between flex children
 
 ### Navigation
 ```tsx
